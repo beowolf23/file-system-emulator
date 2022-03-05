@@ -1,0 +1,64 @@
+Simularea unui sistem de fisiere folosind liste.
+
+Functii utilizate:
+  - create_dir - functia creaza o noua structura Dir *, ii aloca memorie
+                si da numele *name* directorului
+
+  - create_file - functia creaza o noua structura File *, ii aloca memorie
+                si da numele *name* fisierului
+
+  - free_dir - functia elibereaza memoria directorului si a numelui acestuia
+
+  - free_file - functia elibereaza memoria fisierului si a numelui acestuia
+
+  - free_all - functia elibereaza memoria recursiv unei structuri de tip Dir *
+             - aceasta merge recursiv din director in director, a directoarelor din
+               lista de directoare si a fisierelor continute de aceastea (mai intai
+               fisierele si apoi directoarele)
+
+  - touch - functia creaza un nou fisier si il adauga in directorul target in functie de
+            incarcarea listei de fisiere pe care o are target (daca contine deja elemente)
+
+  - mkdir - functia creaza un nou director si il adauga in directorul parinte in functie de
+            incarcarea listei de directoare pe care o are parintele (daca contine deja elemente)
+
+  - ls - functia listeaza continutul directorului curent iterand prin listele de directoare si fisiere
+         si afisand numele acestora
+
+  - rm - functia sterge un fisier din directorul parent iterand prin lista de fisiere
+       - daca lista contine doar fisierul cautat, se elibereaza memoria si se asigneaza head-ul NULL
+       - daca exista fisiere in lista, se cauta numele fisierului dorit pentru a-l sterge
+
+  - rmdir - functia sterge un director din directorul parent iterand prin lista de directoare
+          - dac alista contine doar directorul cautat, se sterge directorul si se asigneaza head-ul NULL
+          - daca exista directoare in lista, se cauta numele dorit pentru a-l sterge
+          - de mentionat este faptul ca stergerea unui director se face recursiv, fapt pentru care tot 
+            continutul directorului va fi sters
+
+  - cd - functia simuleaza navigarea prin ierarhia de directaore din director in director
+       - se verifica daca numele este "..", iar in cazul specific se va naviga catre parinte
+       - daca se da numele unui subdirector se va itera prin lista si in cazul in care se gaseste
+         directorul cautat, se va face schimbarea catre el
+       - daca nu se gaseste directorul cautat se va afisa un mesaj specific
+
+  - pwd - functia printeaza calea catre directorul curent de la home
+        - pentru aceasta am folosit un array de string-uri pentru stocarea numelor directoarelor
+        - pentru ca stocarea se face invers (de la current directory pana la home) am iterat invers
+          prin array si am copiat continutul acestuia intr-un string nou pe care il returnez ulterior
+          dupa eliberarea memoriei array-ului
+  
+  - tree - functia printeaza recursiv ierarhia de directoare pornind de la directorul curent
+         - aceasta prioritizeaza directoarele, apelandu-se recursiv si mergand din director in subdirector
+           apoi din fisier in fisier
+  
+  - mv - functia redenumeste un fisier/director, stergandu-l si apoi adaugandu-l la finalul listei corespunzatoare
+       - se face verificarea numelui - daca numele nou exista deja sau daca numele fisierului cautat
+         nu exista in lista
+       - daca conditiile de existenta sunt satisfacute, se sterge fisierul/directorul
+         si se adauga la finalul listei
+
+  - stop - functia elibereaza memoria ierarhiei de directoare folosind functia free_all si opreste programul
+
+  - main - in main se face citirea comenzilor si a numelor fisierelor/directoarelor folosind token-uri (strtok)
+         - aloc memorie atat cat trebuie pentru fiecare string 
+         - verific daca comenzile date exista si apoi le aplic si eliberez memoria string-urilor
